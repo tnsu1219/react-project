@@ -1,19 +1,24 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Local PostgreSQL API for the Rodas system",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "admin:setup": "node setup-admin.js",
+    "test": "echo \"No tests yet\" && exit 0"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "cors": "^2.8.6",
+    "axios": "^1.7.7",
+    "bcryptjs": "^3.0.2",
     "dotenv": "^18.0.1",
     "express": "^5.2.1",
+    "express-session": "^1.18.2",
     "pg": "^8.23.0"
   },
   "devDependencies": {

@@ -1,0 +1,134 @@
+.login-brand-logo {
+  display: block;
+  width: 148px;
+  height: 148px;
+  object-fit: contain;
+  margin: 0 auto 12px;
+  padding: 3px;
+  border: 2px solid #d1ad5a;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.login-blessing {
+  color: #fff1c8;
+}
+
+@media (max-width: 760px) {
+  .login-brand-panel > div:last-child {
+    padding: 22px 20px 20px !important;
+  }
+
+  .login-brand-logo {
+    width: 132px;
+    height: 132px;
+  }
+}
+
+@media (max-width: 420px) {
+  .login-brand-logo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .login-form-panel > div {
+    padding: 28px 20px 22px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .login-auth-shell {
+    width: min(904px, calc(100% - 24px)) !important;
+    min-height: auto !important;
+    margin: 12px auto !important;
+  }
+
+  .login-brand-panel {
+    min-height: 300px !important;
+    border-bottom: 1px solid rgba(209, 173, 90, 0.55) !important;
+  }
+
+  .login-form-panel {
+    min-height: auto !important;
+  }
+
+  .login-form-panel > div {
+    padding: 30px 22px 24px !important;
+  }
+}
+
+.login-brand-logo {
+  width: 140px;
+  height: 140px;
+  image-rendering: auto;
+}
+
+.login-submit-button {
+  border: 1px solid #987321 !important;
+  background: linear-gradient(180deg, #f3d67f 0%, #d7ae43 100%) !important;
+  box-shadow: 0 5px 0 #987321, 0 9px 18px rgba(137, 100, 26, 0.22) !important;
+  font-weight: 900 !important;
+  transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease;
+}
+
+.login-submit-button:hover:not(:disabled) {
+  background: linear-gradient(180deg, #f7df9a 0%, #e2bd5c 100%) !important;
+  box-shadow: 0 3px 0 #987321, 0 7px 15px rgba(137, 100, 26, 0.25) !important;
+  transform: translateY(2px);
+}
+
+.login-submit-button:active:not(:disabled) {
+  box-shadow: 0 1px 0 #987321 !important;
+  transform: translateY(4px);
+}
+
+.login-account-toggle,
+.login-footer-link {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #c6aa68;
+  border-radius: 7px;
+  padding: 8px 14px;
+  background: #fffdf7;
+  color: #3e3725;
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.3;
+  text-align: center;
+  text-decoration: none;
+  transition: color 150ms ease, background 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.login-account-toggle {
+  width: 100%;
+  margin-top: 14px;
+  cursor: pointer;
+}
+
+.login-footer-links {
+  flex-wrap: wrap;
+}
+
+.login-account-toggle:hover,
+.login-footer-link:hover {
+  border-color: #987321;
+  background: #fbf2d9;
+  color: #172b43;
+}
+
+.login-submit-button:focus-visible,
+.login-account-toggle:focus-visible,
+.login-footer-link:focus-visible {
+  outline: 3px solid #234d77;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-submit-button,
+  .login-account-toggle,
+  .login-footer-link {
+    transition: none;
+  }
+}

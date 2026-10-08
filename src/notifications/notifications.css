@@ -1,0 +1,110 @@
+.notification-stack {
+  position: fixed;
+  z-index: 3000;
+  top: 20px;
+  right: 20px;
+  display: grid;
+  gap: 12px;
+  width: min(420px, calc(100vw - 32px));
+  pointer-events: none;
+}
+
+.app-notification {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) 28px;
+  align-items: start;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+  color: #172033;
+  pointer-events: auto;
+  animation: app-notification-in 180ms ease-out;
+}
+
+.app-notification-success { border-color: #86d6ae; }
+.app-notification-error { border-color: #f0a5a5; }
+.app-notification-warning { border-color: #f1ca7a; }
+.app-notification-info { border-color: #9ac8ed; }
+
+.app-notification-icon {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.app-notification-success .app-notification-icon { background: #dcfce7; color: #166534; }
+.app-notification-error .app-notification-icon { background: #fee2e2; color: #b91c1c; }
+.app-notification-warning .app-notification-icon { background: #fef3c7; color: #92400e; }
+.app-notification-info .app-notification-icon { background: #dbeafe; color: #1d4ed8; }
+
+.app-notification-copy {
+  display: grid;
+  gap: 3px;
+  padding-top: 1px;
+  font-size: 15px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.app-notification-copy strong { font-size: 16px; }
+.app-notification-close { border: 0; background: transparent; color: #64748b; font-size: 23px; line-height: 1; cursor: pointer; }
+
+.app-confirm-backdrop {
+  position: fixed;
+  z-index: 3100;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(15, 23, 42, 0.58);
+  backdrop-filter: blur(3px);
+}
+
+.app-confirm-dialog {
+  width: min(460px, 100%);
+  padding: 28px;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.3);
+  color: #172033;
+  animation: app-notification-in 160ms ease-out;
+}
+
+.app-confirm-icon {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border-radius: 14px;
+  font-size: 25px;
+  font-weight: 900;
+}
+
+.app-confirm-icon-danger { background: #fee2e2; color: #b91c1c; }
+.app-confirm-icon-primary { background: #dbeafe; color: #1d4ed8; }
+.app-confirm-dialog h2 { margin: 18px 0 8px; font-size: 23px; }
+.app-confirm-dialog p { margin: 0; color: #526176; font-size: 16px; line-height: 1.55; overflow-wrap: anywhere; }
+.app-confirm-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 26px; }
+.app-confirm-actions button { min-height: 44px; padding: 10px 16px; border-radius: 9px; font-size: 15px; font-weight: 750; cursor: pointer; }
+.app-confirm-cancel { border: 1px solid #cbd5e1; background: #fff; color: #334155; }
+.app-confirm-accept { border: 1px solid transparent; color: #fff; }
+.app-confirm-accept-danger { background: #b91c1c; }
+.app-confirm-accept-primary { background: #1d4ed8; }
+
+@keyframes app-notification-in {
+  from { opacity: 0; transform: translateY(-8px) scale(0.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 520px) {
+  .notification-stack { top: 12px; right: 12px; width: calc(100vw - 24px); }
+  .app-confirm-dialog { padding: 22px; }
+}

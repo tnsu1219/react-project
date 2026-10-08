@@ -1,0 +1,27 @@
+<svg width="280" height="220" viewBox="0 0 280 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gold" x1="40" y1="20" x2="220" y2="190" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F5E7A7"/>
+      <stop offset="0.46" stop-color="#D7B45E"/>
+      <stop offset="1" stop-color="#B88B33"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(10,10)">
+    <path d="M10 110C40 72 70 50 102 22C118 10 133 4 150 2C176 0 203 11 228 26C253 41 259 62 252 84C245 106 234 117 220 127C206 137 196 148 170 168C144 188 120 194 92 190C67 186 39 170 25 151C17 140 14 124 10 110Z" fill="url(#gold)" fill-opacity="0.18"/>
+    <path d="M74 112C88 91 104 75 124 62C138 53 155 47 175 46C168 65 165 77 164 91C163 104 164 116 170 128C144 126 122 124 98 122C89 121 82 118 74 112Z" fill="url(#gold)" fill-opacity="0.26"/>
+    <path d="M104 64L131 36L149 64L180 55L208 85L170 98L150 130L125 94L90 111L112 82L104 64Z" fill="url(#gold)"/>
+    <path d="M86 104L112 84L135 106L165 93L190 121L153 146L127 166L93 135L86 104Z" fill="#0D1D3B" fill-opacity="0.78"/>
+    <path d="M126 36L133 58L149 58L137 72L142 95L126 83L110 94L116 71L104 58L120 58L126 36Z" fill="#F3E6B3"/>
+    <path d="M115 60C129 80 145 91 168 101" stroke="#F3E6B3" stroke-width="4" stroke-linecap="round"/>
+    <path d="M110 85C135 100 166 110 191 109" stroke="#F3E6B3" stroke-width="3" stroke-linecap="round"/>
+    <path d="M73 154C89 141 104 133 119 130C123 148 124 163 119 180L102 174C95 168 86 163 73 154Z" fill="#F3E6B3"/>
+    <path d="M117 130C142 127 164 130 182 140C194 146 212 154 232 168C225 175 210 184 192 188C180 191 168 189 152 181C144 177 136 171 127 162L117 130Z" fill="#F3E6B3"/>
+    <path d="M92 161C111 157 129 158 145 164" stroke="#0D1D3B" stroke-width="4" stroke-linecap="round"/>
+    <path d="M70 178C103 168 117 170 145 178" stroke="#0D1D3B" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+    <g opacity="0.9">
+      <path d="M183 53L196 47L189 61L203 65L189 70L196 84L183 78L171 84L177 70L164 65L177 61L171 47L183 53Z" fill="#F3E6B3"/>
+      <path d="M51 79L58 74L56 83L64 86L56 90L58 99L51 94L44 99L46 90L38 86L46 83L44 74L51 79Z" fill="#F3E6B3"/>
+      <path d="M228 112L235 108L233 116L240 119L233 122L235 130L228 126L221 130L223 122L216 119L223 116L221 108L228 112Z" fill="#F3E6B3"/>
+    </g>
+  </g>
+</svg>

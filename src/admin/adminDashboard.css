@@ -1,0 +1,253 @@
+.adminDashboard button {
+  transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease, background-color 140ms ease;
+}
+
+.adminDashboard *:not(svg) {
+  font-size: 20px !important;
+}
+
+.adminDashboard button:focus-visible,
+.adminDashboard input:focus-visible,
+.adminDashboard select:focus-visible {
+  outline: 3px solid #f4b942;
+  outline-offset: 2px;
+}
+
+.adminDashboard .admin-nav-button {
+  box-shadow: inset 3px 0 transparent;
+}
+
+.adminDashboard .admin-nav-button:hover {
+  background-color: #263b50 !important;
+  color: #fff !important;
+  transform: translateX(2px);
+}
+
+.adminDashboard .admin-nav-button.is-active {
+  box-shadow: inset 3px 0 #f4b942, 0 5px 14px rgba(0, 0, 0, 0.18);
+}
+
+.adminDashboard .admin-nav-button.is-action {
+  border: 1px solid rgba(118, 203, 215, 0.28);
+}
+
+.adminDashboard .admin-nav-icon {
+  width: 24px;
+  flex: 0 0 24px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.adminDashboard .admin-primary-button:hover {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(8, 101, 123, 0.27);
+}
+
+.adminDashboard .admin-secondary-button:hover,
+.adminDashboard .admin-table-button:hover {
+  background-color: #d8f1f2 !important;
+  transform: translateY(-1px);
+}
+
+.adminDashboard .admin-block-button {
+  border-color: #edc47f;
+  background-color: #fff7e6;
+  color: #86520d;
+}
+
+.adminDashboard .admin-danger-button:hover {
+  background-color: #ffe1da !important;
+  transform: translateY(-1px);
+}
+
+.adminDashboard .admin-password-note {
+  margin: -4px 0 16px;
+  padding: 11px 12px;
+  border-left: 3px solid #d4a33a;
+  background: #fff8e8;
+  color: #66501f;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.adminDashboard .admin-nav-button:active,
+.adminDashboard .admin-primary-button:active,
+.adminDashboard .admin-table-button:active,
+.adminDashboard .admin-danger-button:active {
+  transform: translateY(1px);
+}
+
+.adminDashboard .admin-data-table tbody tr:hover {
+  background-color: #f3f9fa;
+}
+
+.adminDashboard .admin-data-table td,
+.adminDashboard .admin-data-table th {
+  vertical-align: middle;
+}
+
+.adminDashboard .admin-payment-field > span {
+  font-size: 14px !important;
+  color: #334155;
+}
+
+.adminDashboard .admin-payment-hint,
+.adminDashboard .admin-payment-amount-note {
+  font-size: 13px !important;
+}
+
+.adminDashboard .admin-payment-amount-note strong {
+  font-size: 13px !important;
+}
+
+.adminDashboard .admin-payment-status {
+  display: inline-block;
+  margin-bottom: 8px;
+  border-radius: 999px;
+  padding: 5px 9px;
+  font-size: 12px !important;
+  font-weight: 800;
+}
+
+.adminDashboard .admin-payment-status.is-pending {
+  background: #fff4d6;
+  color: #805800;
+}
+
+.adminDashboard .admin-payment-status.is-paid {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.adminDashboard .admin-payment-status.is-failed {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.adminDashboard .admin-payment-review-control {
+  display: grid;
+  gap: 4px;
+  max-width: 210px;
+}
+
+.adminDashboard .admin-payment-review-control > span,
+.adminDashboard .admin-order-payment-submission > small {
+  font-size: 11px !important;
+}
+
+.adminDashboard .admin-order-payment-submission {
+  display: grid;
+  gap: 2px;
+  margin-top: 6px;
+  color: #526b78;
+}
+
+@media (max-width: 760px) {
+  .adminDashboard main {
+    padding: 16px !important;
+  }
+
+  .adminDashboard table {
+    min-width: 760px;
+  }
+}
+
+.adminDashboard .admin-payment-remarks {
+  margin: 4px 0;
+  border-left: 3px solid #d7aa4d;
+  padding: 5px 8px;
+  background: #fff8e8;
+  color: #624d25;
+  font-size: 11px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.adminDashboard .admin-payment-receipt-link {
+  display: inline-flex;
+  margin-top: 4px;
+  border-radius: 6px;
+  padding: 5px 8px;
+  background: #edf4ff;
+  color: #2455a3;
+  font-size: 11px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.adminDashboard .admin-payment-receipt-link:hover { background: #dce9ff; }
+
+.adminDashboard .admin-payment-actions {
+  display: grid;
+  gap: 7px;
+  margin-top: 9px;
+  max-width: 190px;
+}
+
+.adminDashboard .admin-payment-actions button {
+  min-height: 34px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  padding: 7px 9px;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.adminDashboard .admin-payment-actions button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(26, 48, 39, .13);
+}
+
+.adminDashboard .admin-payment-approve {
+  border-color: #b4dfc4 !important;
+  background: linear-gradient(135deg, #e5f7eb, #ccebd7);
+  color: #16633b;
+}
+
+.adminDashboard .admin-payment-reject {
+  border-color: #f0c7bd !important;
+  background: linear-gradient(135deg, #fff1ed, #fbe0d9);
+  color: #963f31;
+}
+
+.adminDashboard .admin-order-status-details {
+  min-width: 190px;
+  margin-top: 9px;
+  border: 1px solid #cbd9d1;
+  border-radius: 8px;
+  background: #f7faf8;
+}
+
+.adminDashboard .admin-order-status-details > summary {
+  padding: 8px 9px;
+  color: #20543d;
+  font-size: 10px;
+  font-weight: 850;
+  cursor: pointer;
+  list-style-position: inside;
+}
+
+.adminDashboard .admin-order-status-panel {
+  display: grid;
+  gap: 9px;
+  padding: 0 9px 10px;
+  color: #526b78;
+  font-size: 11px;
+}
+
+.adminDashboard .admin-order-status-submission {
+  display: grid;
+  gap: 5px;
+  border-top: 1px solid #e0e9e4;
+  padding-top: 9px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.adminDashboard .admin-order-status-submission > strong { color: #183d2c; }
+.adminDashboard .admin-order-status-submission > span { color: #5b6d64; }
+.adminDashboard .admin-order-status-panel .admin-payment-actions { max-width: none; }
