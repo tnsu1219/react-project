@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import DashboardFrame from '../../DashboardFrame.jsx';
 import { departmentConfig } from '../../departmentConfig.js';
-import SupportRequestForm from '../../SupportRequestForm.jsx';
 import useDepartmentWorkItems from '../../useDepartmentWorkItems.js';
 
 const department = 'Mainstore';
@@ -62,7 +61,6 @@ export default function MainstoreDashboard({ user, onLogout }) {
           </article>)}
         </div>
       </section>}
-      <SupportRequestForm user={user} />
     </DashboardFrame>
   );
 }

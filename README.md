@@ -53,13 +53,19 @@ The app uses a local Express API and PostgreSQL. The browser never connects dire
 - `src/api.js`: the browser-side helper for calling the local API.
 - `src/security/login.jsx`: login, sign-up, and role checks using the local API.
 - `src/UserDashboard.jsx`: routes staff to the dashboard matching their assigned department.
-- `src/userDashboard/departments/<Department>/<Department>Dashboard.jsx`: the department's own dashboard behavior and inline styles. Edit the matching file to change that department.
+- `src/userDashboard/departments/<Department>/<Department>Dashboard.jsx`: the department's own dashboard behavior and inline styles. HR has its own `HRDashboard.jsx` and `hrDashboard.css`.
 - `src/userDashboard/departments/Finance/financeDashboard.css`: additional Finance dashboard styles.
 - `src/userDashboard/DashboardFrame.jsx` and `src/userDashboard/SupportRequestForm.jsx`: shared navigation/activity frame and IT support form used by department dashboards.
 - `src/userDashboard/departmentConfig.js`: shared department names, colors, duties, and workflow labels/statuses.
-- `src/userDashboard/useDepartmentWorkItems.js`: loads and saves shared department work in PostgreSQL for Attendance, Auditor, Mainstore, and Logistics. Existing records saved in the browser are transferred automatically the first time the dashboard loads after the update.
+- `src/userDashboard/useDepartmentWorkItems.js`: loads shared generic department work in PostgreSQL for Attendance, Auditor, Mainstore, and Logistics. Existing records saved in the browser are transferred automatically the first time those dashboards load after the update.
 
-Department work items are shared among active staff accounts assigned to the same department. They are stored in `department_work_items`, created automatically with the rest of the database schema on API startup, and can be added, status-updated, or removed from that department's dashboard.
+Department work items are shared among active staff accounts assigned to the same department. They are stored in `department_work_items`, created automatically with the rest of the database schema on API startup, and can be added, status-updated, or removed from the relevant department dashboard. HR staff can be provisioned by an administrator from **Users** → **Add User** by choosing **HR**; they then sign in through the regular staff login.
+
+## HR workspace
+
+The HR sidebar provides Dashboard, My activity, Recruitment, Onboarding, Leave & attendance, Training, Employee support, and Department tasks. HR records, leave requests, attendance, and audit events are stored in PostgreSQL; they are not kept in browser storage. Recruitment supports vacancies, candidates, applications, and interviews. Onboarding records can include checklist entries and employee documents (PDF/JPEG/PNG, up to 5 MB each); uploaded file content stays in PostgreSQL and is served only through authenticated HR/admin endpoints. Configure PostgreSQL's storage encryption and backups according to your organization's employee-data policy.
+
+HR accounts can manage HR records and review leave requests. Staff accounts can submit their own leave requests and clock in/out; HR and administrators can review attendance and record HR notes. Creating staff login accounts remains an administrator-only operation, so onboarding records can be started before the employee account is provisioned. No additional environment variables are needed. The additive `hr_records`, `hr_leave_requests`, `hr_attendance`, `hr_documents`, and `hr_activity` tables are created when the API starts; existing records are not dropped or rewritten. This application connects directly to PostgreSQL through Express, so Supabase RLS does not apply; the API enforces HR and employee access rules.
 
 ## First-time setup
 
@@ -74,7 +80,7 @@ If the admin already exists but its password is not working, save the correct `A
 
 Passwords are stored in PostgreSQL as bcrypt hashes in `app_users.password_hash`, never as readable text. Do not manually insert a plaintext password into pgAdmin. The configured email/password are entered on the `/admin-login` page.
 
-On startup, the API creates `app_users`, `transactions`, and `support_requests` in the selected database. If your selected database already has tables from another app, back it up and use a new empty database for Rodas first.
+On startup, the API creates the required Rodas tables and indexes in the selected database. If your selected database already has tables from another app, back it up and use a new empty database for Rodas first.
 
 ## What changed from Supabase
 

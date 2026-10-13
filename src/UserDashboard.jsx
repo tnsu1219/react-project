@@ -1,8 +1,9 @@
 import React from 'react';
 import ITDashboard from './userDashboard/departments/IT/ITDashboard.jsx';
-import SalesDashboard from './userDashboard/departments/Sales/SalesDashboard.jsx';
+import HRDashboard from './userDashboard/departments/HR/HRDashboard.jsx';
+import SalesDashboard from './userDashboard/departments/Sales/SalesOrderDesk.jsx';
 import FinanceDashboard from './userDashboard/departments/Finance/FinanceDashboard.jsx';
-import MainstoreDashboard from './userDashboard/departments/Mainstore/MainstoreDashboard.jsx';
+import MainstoreDashboard from './userDashboard/departments/Mainstore/MainstoreControlDesk.jsx';
 import AttendanceDashboard from './userDashboard/departments/Attendance/AttendanceDashboard.jsx';
 import AuditorDashboard from './userDashboard/departments/Auditor/AuditorDashboard.jsx';
 import LogisticsDashboard from './userDashboard/departments/Logistics/LogisticsDashboard.jsx';
@@ -11,6 +12,7 @@ export default function UserDashboard({ user, onLogout }) {
   const department = user?.department;
   const dashboardByDepartment = {
     IT: ITDashboard,
+    HR: HRDashboard,
     Sales: SalesDashboard,
     Finance: FinanceDashboard,
     Mainstore: MainstoreDashboard,

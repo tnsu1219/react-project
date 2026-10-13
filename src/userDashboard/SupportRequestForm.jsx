@@ -41,7 +41,7 @@ export default function SupportRequestForm({ user }) {
         issueType,
         title: requestTitle,
         description: requestDescription,
-        department: department || 'Finance',
+        department: department || 'Department',
         reporterEmail: user.email,
       });
 

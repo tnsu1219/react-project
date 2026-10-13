@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { apiRequest } from '../api';
+import SupportRequestForm from './SupportRequestForm.jsx';
 import './departmentDashboardTypography.css';
 
 function readTaskState(storageKey) {
@@ -13,8 +14,11 @@ function readTaskState(storageKey) {
 export default function DashboardFrame({
   user, config, onLogout, children, isIT = false, notifications = [],
   notificationCount = 0, notificationError = '', onNotificationReply,
+  customViews = [], renderCustomView, renderActivityView, renderDashboard,
+  hideDefaultTasks = false, onViewChange,
 }) {
   const [activeView, setActiveView] = useState('dashboard');
+  const [sidebarOpen, setSidebarOpen] = useState(() => !window.matchMedia('(max-width: 720px)').matches);
   const [activity, setActivity] = useState({ status: 'idle', items: [], error: '' });
   const [replyingTo, setReplyingTo] = useState(null);
   const [replyError, setReplyError] = useState('');
@@ -29,7 +33,7 @@ export default function DashboardFrame({
   }, [completedTasks, taskStorageKey]);
 
   useEffect(() => {
-    if (activeView !== 'activity') return undefined;
+    if (activeView !== 'activity' || renderActivityView) return undefined;
 
     let isCurrent = true;
     apiRequest('/support-requests/mine')
@@ -42,7 +46,7 @@ export default function DashboardFrame({
       });
 
     return () => { isCurrent = false; };
-  }, [activeView, user.id]);
+  }, [activeView, user.id, renderActivityView]);
 
   const completedCount = config.duties.filter((task) => completedTasks[task]).length;
   const sendNotificationReply = async (request, responseType, message) => {
@@ -65,16 +69,33 @@ export default function DashboardFrame({
     { type: 'ready', label: 'Ready to assist', message: 'IT is ready to assist. Please coordinate with the IT team.', tone: 'ready' },
     { type: 'need_info', label: 'Need more details', message: 'We need more information to investigate this request. Please add the relevant details or contact IT.', tone: 'info' },
   ];
-  const views = [
+  const baseViews = [
     { id: 'dashboard', label: 'Dashboard', icon: '⌂' },
     { id: 'activity', label: isIT ? 'Activities' : 'My activity', icon: '◷' },
     { id: 'tasks', label: 'Department tasks', icon: '▦' },
+    { id: 'it-support', label: 'IT Support', icon: 'ⓘ' },
   ];
+  const views = [
+    ...baseViews.filter((view) => !(hideDefaultTasks && view.id === 'tasks')),
+    ...customViews,
+  ];
+  const isCustomView = customViews.some((view) => view.id === activeView);
+  const navigate = useCallback((viewId) => {
+    setActiveView(viewId);
+    onViewChange?.(viewId);
+    if (viewId === 'activity') setActivity({ status: 'loading', items: [], error: '' });
+  }, [onViewChange]);
 
   return (
-    <main className={`department-workspace${config.title === 'IT Operations' ? ' it-workspace' : ''}`} style={styles.page}>
+    <main className={`department-workspace${config.title === 'IT Operations' ? ' it-workspace' : ''}${config.title === 'Human Resources' ? ' hr-workspace' : ''}`} style={styles.page}>
       <header style={styles.topbar}>
-        <button type="button" style={styles.menuButton} aria-label="Toggle navigation">☰</button>
+        <button
+          type="button"
+          style={styles.menuButton}
+          aria-label="Toggle navigation"
+          aria-expanded={sidebarOpen}
+          onClick={() => setSidebarOpen((open) => !open)}
+        >☰</button>
         <strong style={styles.brand}>RODAS SYSTEM</strong>
         <div style={styles.store}>Department workspace</div>
         <div style={styles.topActions}>
@@ -84,7 +105,7 @@ export default function DashboardFrame({
               className="it-notification-trigger"
               aria-label={`Open IT notifications${notificationCount ? `, ${notificationCount} requests need attention` : ''}`}
               aria-current={activeView === 'notifications' ? 'page' : undefined}
-              onClick={() => setActiveView('notifications')}
+              onClick={() => navigate('notifications')}
             >
               <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
                 <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" />
@@ -96,8 +117,8 @@ export default function DashboardFrame({
           <span style={styles.topAvatar}>{config.initials}</span>
         </div>
       </header>
-      <div className={isIT ? 'department-layout it-layout' : 'department-layout'} style={styles.layout}>
-        <aside className={isIT ? 'department-sidebar it-sidebar' : 'department-sidebar'} style={styles.sidebar}>
+      <div className={`${isIT ? 'department-layout it-layout' : 'department-layout'}${sidebarOpen ? ' sidebar-open' : ' sidebar-closed'}`} style={styles.layout}>
+        <aside className={`${isIT ? 'department-sidebar it-sidebar' : 'department-sidebar'}${sidebarOpen ? ' is-open' : ''}`} style={styles.sidebar}>
           <div style={styles.profile}>
             <div style={{ ...styles.profileAvatar, background: config.accent }}>{config.initials}</div>
             <div><strong style={styles.profileName}>{user.email?.split('@')[0]}</strong><span style={styles.profileRole}>{config.title}</span></div>
@@ -108,8 +129,8 @@ export default function DashboardFrame({
                 key={view.id}
                 type="button"
                 onClick={() => {
-                  setActiveView(view.id);
-                  if (view.id === 'activity') setActivity({ status: 'loading', items: [], error: '' });
+                  navigate(view.id);
+                  setSidebarOpen(false);
                 }}
                 aria-current={activeView === view.id ? 'page' : undefined}
                 style={activeView === view.id ? styles.navActive : styles.navItem}
@@ -119,15 +140,39 @@ export default function DashboardFrame({
             ))}
           </nav>
           <div style={styles.sidebarFooter}>
-            <div style={styles.sidebarNote}>Need help?<br /><strong>Send a request to IT</strong></div>
+            <button
+              type="button"
+              onClick={() => {
+                navigate('it-support');
+                setSidebarOpen(false);
+              }}
+              aria-current={activeView === 'it-support' ? 'page' : undefined}
+              style={activeView === 'it-support' ? styles.supportButtonActive : styles.supportButton}
+            >
+              <span aria-hidden="true">ⓘ</span>
+              <span style={{ display: 'grid', gap: '2px' }}>
+                <strong>IT SUPPORT</strong>
+                <small style={{ fontSize: '11px', opacity: 0.85 }}>Contact the IT technician</small>
+              </span>
+            </button>
             <button type="button" onClick={onLogout} style={styles.sidebarLogout}>
               <span aria-hidden="true">↪</span> Log Out
             </button>
           </div>
         </aside>
         <section className={isIT ? 'department-main it-main' : 'department-main'} style={styles.content}>
-          {activeView === 'dashboard' && children}
-          {activeView === 'activity' && (
+          {activeView === 'dashboard' && (renderDashboard ? renderDashboard(navigate) : children)}
+          {activeView === 'it-support' && (
+            <section className="department-content-view" style={{ ...styles.view, '--department-accent': config.accent }}>
+              <header className="department-content-heading" style={styles.viewHeader}>
+                <p style={styles.viewKicker}>{config.title}</p>
+                <h1 style={styles.viewTitle}>IT Support</h1>
+                <p style={styles.viewCopy}>Describe the technical issue and the IT technician will receive your request with your department details.</p>
+              </header>
+              <SupportRequestForm user={user} />
+            </section>
+          )}
+          {activeView === 'activity' && (renderActivityView ? renderActivityView() : (
             <section className={`department-content-view${isIT ? ' it-department-view' : ''}`} style={{ ...styles.view, '--department-accent': config.accent }}>
               <header className="department-content-heading" style={styles.viewHeader}>
                 <p style={styles.viewKicker}>{config.title}</p>
@@ -182,8 +227,9 @@ export default function DashboardFrame({
                 </div>
               )}
             </section>
-          )}
-          {activeView === 'tasks' && (
+          ))}
+          {isCustomView && activeView !== 'activity' && renderCustomView?.(activeView)}
+          {activeView === 'tasks' && !isCustomView && (
             <section className={`department-content-view${isIT ? ' it-department-view' : ''}`} style={{ ...styles.view, '--department-accent': config.accent }}>
               <header className="department-content-heading" style={styles.viewHeader}>
                 <p style={styles.viewKicker}>{config.title}</p>
@@ -324,7 +370,8 @@ const styles = {
   navActive: { width: '100%', border: 0, background: '#6537e8', color: '#fff', borderRadius: '8px', padding: '12px', display: 'flex', gap: '12px', textAlign: 'left', fontWeight: '800', fontSize: '14px', cursor: 'pointer' },
   navItem: { width: '100%', border: 0, background: 'transparent', color: '#f1f5f9', borderRadius: '8px', padding: '12px', display: 'flex', gap: '12px', textAlign: 'left', fontWeight: '700', fontSize: '14px', cursor: 'pointer' },
   sidebarFooter: { marginTop: 'auto', borderTop: '1px solid rgba(255,255,255,0.16)', paddingTop: '10px' },
-  sidebarNote: { padding: '10px 6px 14px', color: '#cbd5e1', fontSize: '12px', lineHeight: 1.6 },
+  supportButton: { width: '100%', border: '1px solid rgba(96,165,250,0.5)', background: 'rgba(37,99,235,0.16)', color: '#dbeafe', borderRadius: '8px', padding: '11px 10px', display: 'flex', alignItems: 'center', gap: '10px', textAlign: 'left', cursor: 'pointer', marginBottom: '10px' },
+  supportButtonActive: { width: '100%', border: '1px solid #60a5fa', background: '#1d4ed8', color: '#fff', borderRadius: '8px', padding: '11px 10px', display: 'flex', alignItems: 'center', gap: '10px', textAlign: 'left', cursor: 'pointer', marginBottom: '10px' },
   sidebarLogout: { width: '100%', border: '1px solid rgba(248,113,113,0.55)', background: 'rgba(127,29,29,0.22)', color: '#fecaca', borderRadius: '8px', padding: '11px 12px', display: 'flex', alignItems: 'center', gap: '10px', fontWeight: '800', fontSize: '14px', cursor: 'pointer' },
   content: { flex: 1, minWidth: 0, minHeight: 0, overflowY: 'auto', padding: '24px', boxSizing: 'border-box' },
   view: { maxWidth: '1000px', margin: '0 auto', display: 'grid', gap: '20px' },

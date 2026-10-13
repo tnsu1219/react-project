@@ -1,16 +1,16 @@
-.department-workspace *:not(svg):not([aria-hidden="true"]) {
+.department-workspace:not(.hr-workspace) *:not(svg):not([aria-hidden="true"]) {
   font-size: 20px !important;
 }
 
-.department-workspace h1 {
+.department-workspace:not(.hr-workspace) h1 {
   font-size: 34px !important;
 }
 
-.department-workspace h2 {
+.department-workspace:not(.hr-workspace) h2 {
   font-size: 26px !important;
 }
 
-.department-workspace h3 {
+.department-workspace:not(.hr-workspace) h3 {
   font-size: 22px !important;
 }
 
@@ -281,6 +281,16 @@
   .department-workspace .department-task-summary { align-items: flex-start !important; flex-direction: column; }
   .department-workspace .department-activity-list,
   .department-workspace .department-task-list { padding: 0 12px !important; }
+}
+
+@media (max-width: 720px) {
+  .department-layout.sidebar-closed .department-sidebar {
+    display: none !important;
+  }
+}
+
+.department-layout.sidebar-closed .department-sidebar {
+  display: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

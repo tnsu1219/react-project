@@ -1165,7 +1165,7 @@ function MainApp({ user, onLogout }) {
                 style={styles.modalInput}
               >
                 <option value="">Select department</option>
-                {['IT', 'Sales', 'Finance', 'Mainstore', 'Attendance', 'Auditor', 'Logistics'].map((department) => (
+                {['IT', 'HR', 'Sales', 'Finance', 'Mainstore', 'Attendance', 'Auditor', 'Logistics'].map((department) => (
                   <option key={department} value={department}>{department}</option>
                 ))}
               </select>
