@@ -48,7 +48,7 @@ app.use(require('./routes/support')(routeDependencies));
 app.use(require('./routes/hr')(routeDependencies));
 
 const port = Number(process.env.PORT || 4000);
-const host = process.env.API_HOST || '127.0.0.1';
+const host = process.env.API_HOST || '0.0.0.0';
 
 async function startServer() {
   try {
